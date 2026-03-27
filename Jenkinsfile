@@ -11,8 +11,8 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'sudo -u amitkumar kubectl apply -f deploy.yaml'
-                sh 'sudo -u amitkumar kubectl apply -f service.yaml'
+                sh 'sudo -n -u amitkumar kubectl apply -f deploy.yaml'
+                sh 'sudo -n -u amitkumar kubectl apply -f service.yaml'
             }
         }
     }
