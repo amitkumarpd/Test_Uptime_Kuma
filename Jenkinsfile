@@ -1,8 +1,11 @@
 pipeline {
     agent any
 
-    stages {
+    environment {
+        KUBECONFIG = '/var/lib/jenkins/.kube/config'
+    }
 
+    stages {
         stage('Clone Repo') {
             steps {
                 git branch: 'main', url: 'git@github.com:amitkumarpd/Test_Uptime_Kuma.git'
@@ -11,8 +14,8 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'sudo -n -u amitkumar kubectl apply -f deploy.yaml'
-                sh 'sudo -n -u amitkumar kubectl apply -f service.yaml'
+                sh '/usr/local/bin/kubectl apply -f deploy.yaml'
+                sh '/usr/local/bin/kubectl apply -f service.yaml'
             }
         }
     }
