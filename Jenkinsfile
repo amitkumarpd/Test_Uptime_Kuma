@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone Repo') {
             steps {
-                git 'git@github.com:amitkumarpd/Test_Uptime_Kuma.git'
+                git branch: 'main', url: 'git@github.com:amitkumarpd/Test_Uptime_Kuma.git'
             }
         }
 
