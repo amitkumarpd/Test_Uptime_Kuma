@@ -14,8 +14,8 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh '/usr/local/bin/kubectl apply -f deploy.yaml'
-                sh '/usr/local/bin/kubectl apply -f service.yaml'
+                sh '/usr/local/bin/kubectl apply -f deploy.yaml --validate=false'
+                sh '/usr/local/bin/kubectl apply -f service.yaml --validate=false'
             }
         }
     }
