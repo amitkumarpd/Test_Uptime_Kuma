@@ -2,20 +2,19 @@ pipeline {
     agent any
 
     environment {
-        KUBECONFIG = '/home/jenkins/.kube/config'
+        KUBECONFIG = '/var/lib/jenkins/.kube/config'
     }
 
     stages {
-        stage('Clone Repo') {
-            steps {
-                git branch: 'main', url: 'git@github.com:amitkumarpd/Test_Uptime_Kuma.git'
-            }
-        }
-
         stage('Deploy to Kubernetes') {
             steps {
-                sh '/usr/local/bin/kubectl apply -f deploy.yaml --validate=false'
-                sh '/usr/local/bin/kubectl apply -f service.yaml --validate=false'
+                // Debug: confirm kubectl sees the right cluster
+                sh 'kubectl config view --minify'
+                sh 'kubectl get nodes'
+
+                // Apply manifests
+                sh 'kubectl apply -f deploy.yaml --validate=false'
+                sh 'kubectl apply -f service.yaml --validate=false'
             }
         }
     }
